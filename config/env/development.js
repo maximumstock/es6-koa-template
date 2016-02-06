@@ -6,12 +6,6 @@
 
 module.exports = {
 
-    environment: 'development',
-
-    dbname: 'hexdatabaseapi',
-    dbuser: 'hexdatabaseapi',
-    dbpass: 'hexdatabaseapi',
-    dbhost: 'localhost',
-    dbport: 5432,
+    environment: 'development'
 
 };
