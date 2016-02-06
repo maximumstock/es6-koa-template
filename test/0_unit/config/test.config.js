@@ -64,9 +64,9 @@ describe('Config', function() {
             process.env.NODE_ENV = 'staging';
 
             try {
-              requireNew('../../../lib/config');
-            } catch(e) {
-              expect(e).to.be.an('error');
+                requireNew('../../../lib/config');
+            } catch (e) {
+                expect(e).to.be.an('error');
             }
 
         });
@@ -95,9 +95,9 @@ describe('Config', function() {
             process.env.NODE_ENV = 'production';
 
             try {
-              requireNew('../../../lib/config');
-            } catch(e) {
-              expect(e).to.be.an('error');
+                requireNew('../../../lib/config');
+            } catch (e) {
+                expect(e).to.be.an('error');
             }
 
         });
