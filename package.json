@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-template",
+  "name": "nodejs-koajs-template",
   "version": "1.0.0",
-  "description": "A simple node.js template for future projects.",
+  "description": "A simple node.js template for future projects using koa.js",
   "main": "server.js",
   "directories": {
     "test": "test"
