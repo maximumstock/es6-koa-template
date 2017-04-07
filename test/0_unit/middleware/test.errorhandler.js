@@ -4,27 +4,28 @@
  * @file Test specification for error handling middleware
  */
 
-require('co-mocha');
+require('babel-core/register');
+
 const expect = require('chai').expect;
-const koa = require('koa');
-const request = require('co-supertest');
+const Koa = require('koa');
+const request = require('supertest');
 
 const middleware = require('../../../lib/middleware');
 const errorHandler = middleware.errorHandler;
 
 describe('Error Handler', function() {
 
-  it('should return a thrown error as a json object', function*() {
+  it('should return a thrown error as a json object', async () => {
 
-    const app = koa();
-    app.use(errorHandler());
-    app.use(function*(next) {
-      const err = new Error('very important error');
+    const app = new Koa();
+    app.use(errorHandler);
+    app.use(async (ctx, next) => {
+      const err = new Error('lel');
       err.status = 401;
       throw err;
     });
 
-    const result = yield request(app.listen()).get('/').expect(401).end();
+    const result = await request(app.listen(3000)).get('/').expect(401);
 
     expect(result.body).to.be.an('object');
     expect(result.body).to.have.a.property('status');
@@ -34,19 +35,19 @@ describe('Error Handler', function() {
 
   });
 
-  it('should not provide stacktrace information when not in development mode', function*() {
+  it('should not provide stacktrace information when not in development mode', async () => {
 
     process.env.NODE_ENV = 'production';
 
-    const app = koa();
-    app.use(errorHandler());
-    app.use(function*(next) {
+    const app = new Koa();
+    app.use(errorHandler);
+    app.use(async (ctx, next) => {
       const err = new Error('very important error');
       err.status = 401;
       throw err;
     });
 
-    const result = yield request(app.listen()).get('/').expect(401).end();
+    const result = await request(app.listen()).get('/');
 
     expect(result.body).to.be.an('object');
     expect(result.body).to.have.a.property('status');
